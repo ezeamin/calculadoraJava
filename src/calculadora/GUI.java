@@ -228,14 +228,14 @@ public class GUI extends javax.swing.JFrame {
 
         entrada.setEditable(false);
         entrada.setColumns(20);
-        entrada.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        entrada.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
         entrada.setRows(5);
         entrada.setBorder(null);
         entrada.setFocusable(false);
         entrada.setOpaque(false);
         jScrollPane1.setViewportView(entrada);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 390, 90));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 390, 80));
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -243,7 +243,7 @@ public class GUI extends javax.swing.JFrame {
 
         resultado.setEditable(false);
         resultado.setColumns(20);
-        resultado.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        resultado.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
         resultado.setRows(5);
         resultado.setBorder(null);
         resultado.setCaretColor(new java.awt.Color(0, 0, 0));
@@ -251,7 +251,7 @@ public class GUI extends javax.swing.JFrame {
         resultado.setOpaque(false);
         jScrollPane2.setViewportView(resultado);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 390, 50));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 390, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -313,7 +313,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        num=lo.deleteOne(entrada,resultado);
+        lo.deleteOne(entrada,resultado);
         /*if(lo.checkDouble()) entrada.setText(String.valueOf((int)num));
         else entrada.setText(String.valueOf(num));*/
     }//GEN-LAST:event_btnBorrarActionPerformed

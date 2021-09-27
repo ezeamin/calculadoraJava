@@ -20,7 +20,7 @@ public class Logic {
     private double numActive;
     private String operador;
     private boolean isComa;
-    private int n;
+    private int n; //cant de digitos decimales
     
     public void init(JTextArea entrada,JTextArea resultado){
         entrada.setText("0");
@@ -81,7 +81,6 @@ public class Logic {
             double temp=numActive*pow(10,n);
             temp%=10;
             temp/=pow(10,n);
-            System.out.println(""+temp);
             numActive-=temp;
             n--;
             
@@ -109,7 +108,12 @@ public class Logic {
         numActive=checkNum();
         limpiarRes(resultado);
         
-        if(operador!=null){
+        if(isComa && lastDigit()==0){ //Imprimir "0" segun se ingresen (porque los 0 no aportan valor hasta que se ingresa otro numero)
+            if(n==0 && numActive==0 && num1!=0) entrada.append("0."); 
+            else if (n==0) entrada.append(".");
+            else entrada.append("0");
+        }
+        else if(operador!=null){
             if(checkDouble(numActive)){
                 if(checkDouble(num1)){
                     if(num2==0) {
@@ -155,6 +159,11 @@ public class Logic {
         }
     }
     
+    private int lastDigit(){
+        int temp=(int)(numActive*pow(10,n));
+        return temp%=10;
+    }
+    
     public void imprimirRes(JTextArea resultado){      
         if(checkDouble(total)) resultado.setText(String.valueOf((int)total));
         else { //Dejar solo 3 lugares tras la coma
@@ -170,10 +179,17 @@ public class Logic {
     }
     
     public void oper(String op,JTextArea entrada,JTextArea resultado){ //y si hago doble operador?
-        operador=op;
-        isComa=false;
-        n=0;
-        imprimir(entrada,resultado);
+        if(operador==null){
+            operador=op;
+            isComa=false;
+            n=0;
+            imprimir(entrada,resultado);
+        }
+        else{ //doble operador
+            total(entrada,resultado);
+            operador=op;
+            imprimir(entrada,resultado);
+        }
     }
     
     /*Operaciones*/
