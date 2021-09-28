@@ -21,13 +21,17 @@ public class Logic {
     private String operador;
     private boolean isComa;
     private int n; //cant de digitos decimales
+    private Posfijo pos;
+    private String cadena;
     
     public void init(JTextArea entrada,JTextArea resultado){
         entrada.setText("0");
         resultado.setText("0");
+        cadena="";
+        pos=new Posfijo();
     }
     
-    public void send(String str,JTextArea entrada,JTextArea resultado){     
+    /*public void send(String str,JTextArea entrada,JTextArea resultado){     
         double _num;
         numActive=checkNum();
         
@@ -50,6 +54,12 @@ public class Logic {
         
         actualizar();
         imprimir(entrada,resultado);
+    }*/
+    
+    public void send(String str,JTextArea entrada,JTextArea resultado){
+        if("".equals(cadena)) resultado.setText("0");
+        cadena+=str;
+        entrada.setText(cadena);
     }
     
     private int cantDecimal(){
@@ -195,6 +205,13 @@ public class Logic {
     /*Operaciones*/
     
     public void total(JTextArea entrada,JTextArea resultado){
+        System.out.println(""+cadena);
+        double res=pos.convertir(cadena);
+        resultado.setText(String.valueOf(res));
+        cadena="";
+    }
+    
+    /*public void total(JTextArea entrada,JTextArea resultado){
         //Si no hay nada...
         
         if(operador==null){
@@ -224,7 +241,7 @@ public class Logic {
         imprimirRes(resultado);
         limpiar(entrada);
         num1=total;
-    }
+    }*/
     
     public void limpiar(JTextArea entrada){
         num1=0;

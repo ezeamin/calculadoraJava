@@ -263,7 +263,8 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDivisionActionPerformed
         // TODO add your handling code here:
-        lo.oper("/",entrada,resultado);
+        //lo.oper("/",entrada,resultado);
+        lo.send("/",entrada,resultado);
     }//GEN-LAST:event_btnDivisionActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
@@ -320,17 +321,20 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumaActionPerformed
         // TODO add your handling code here:
-        lo.oper("+",entrada,resultado);
+        //lo.oper("+",entrada,resultado);
+        lo.send("+",entrada,resultado);
     }//GEN-LAST:event_btnSumaActionPerformed
 
     private void btnRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaActionPerformed
         // TODO add your handling code here:
-        lo.oper("-",entrada,resultado);
+        //lo.oper("-",entrada,resultado);
+        lo.send("-",entrada,resultado);
     }//GEN-LAST:event_btnRestaActionPerformed
 
     private void btnMultiplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultiplicacionActionPerformed
         // TODO add your handling code here:
-        lo.oper("*",entrada,resultado);
+        //lo.oper("*",entrada,resultado);
+        lo.send("*",entrada,resultado);
     }//GEN-LAST:event_btnMultiplicacionActionPerformed
 
     private void btnIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgualActionPerformed
