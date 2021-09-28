@@ -205,7 +205,7 @@ public class Logic {
     /*Operaciones*/
     
     public void total(JTextArea entrada,JTextArea resultado){
-        System.out.println(""+cadena);
+        //System.out.println(""+cadena);
         double res=pos.convertir(cadena);
         resultado.setText(String.valueOf(res));
         cadena="";

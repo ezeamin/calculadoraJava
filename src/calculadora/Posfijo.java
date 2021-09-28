@@ -5,6 +5,8 @@
  */
 package calculadora;
 
+import static java.lang.Math.pow;
+
 /**
  *
  * @author EZEA2
@@ -13,6 +15,8 @@ public class Posfijo {
     private Pila s;
     private PilaDouble s2;
     private String posfijo;
+    private int n;
+    private double num;
     
     Posfijo(){
         s=new Pila(10);
@@ -29,6 +33,7 @@ public class Posfijo {
     public double convertir(String entrefijo){
         entrefijo=entrefijo.concat("$");
         char x;
+        boolean nuevaVuelta=true;
         
         reset();
 
@@ -37,10 +42,25 @@ public class Posfijo {
             x=entrefijo.charAt(i);
             
             if(Character.isDigit(x)){
+                if(nuevaVuelta){
+                    num=Integer.parseInt(Character.toString(x));
+                    nuevaVuelta=false;
+                    System.out.println("num NV= "+num);
+                }
+                else if(num!=0){
+                    n=cantDigitos();
+                    num*=pow(10,n);
+                    num+=Integer.parseInt(Character.toString(x));
+                    System.out.println("n= "+n);
+                    System.out.println("num act= "+num);
+                }
+                
                 if ("".equals(posfijo)) posfijo=Character.toString(x); //posfijo empieza como null, por lo que debo inicializarlo con un valor
                 else posfijo+=Character.toString(x); //concateno a posfijo el caracter que extraí recien
             }
             else{
+                nuevaVuelta=true;
+                //pasar num a variable y vaciar
                 switch(x){
                     /*case ')':{ //tira error
                         while(s.getLast()!='('){
@@ -56,7 +76,7 @@ public class Posfijo {
                             else posfijo+=Character.toString(s.pop());
                         }
                         posfijo+=Character.toString('$');
-                        System.out.println(""+posfijo);
+                        //System.out.println(""+posfijo);
                         return evaluar();
                     }
                     default:{
@@ -69,6 +89,17 @@ public class Posfijo {
                 }
             }
         }
+    }
+    
+    private int cantDigitos(){
+        int i=0;
+        
+        while(num>=1){
+            num/=10;
+            i++;
+        }
+        
+        return i+1;
     }
     
     private int getPE(char x){
