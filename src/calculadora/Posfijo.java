@@ -5,8 +5,6 @@
  */
 package calculadora;
 
-import static java.lang.Math.pow;
-
 /**
  *
  * @author EZEA2
@@ -15,8 +13,6 @@ public class Posfijo {
     private Pila s;
     private PilaDouble s2;
     private String posfijo;
-    /*private int n;
-    private double num;*/
     private String cadNum;
     
     Posfijo(){
@@ -35,7 +31,6 @@ public class Posfijo {
     public double convertir(String entrefijo){
         entrefijo=entrefijo.concat("$");
         char x;
-        boolean nuevaVuelta=true;
         
         reset();
 
@@ -81,17 +76,6 @@ public class Posfijo {
         }
     }
     
-    private int cantDigitos(double num){
-        int i=0;
-        
-        while(num>=1){
-            num/=10;
-            i++;
-        }
-        
-        return i;
-    }
-    
     private int getPE(char x){
         switch(x){
             case '^':{
@@ -113,9 +97,9 @@ public class Posfijo {
     }
     
     public double evaluar(){
-        char x,y;
+        char x;
         double resultado;
-        String numCad="";
+        cadNum=""; //reseteo variable
         
         for(int i=0;true;i++){
             x=posfijo.charAt(i);
@@ -124,12 +108,12 @@ public class Posfijo {
             
             if(Character.isDigit(x)){
                 while(Character.isDigit(x)){ //Si el caracter no es coma ni operador
-                    numCad+=x; //Concateno al numero total
+                    cadNum+=x; //Concateno al numero total
                     i++; //Recorro el string
                     x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
                 }
-                s2.add(Double.parseDouble(numCad)); //Agrego a la pila el numero
-                numCad=""; //Reseteo el String
+                s2.add(Double.parseDouble(cadNum)); //Agrego a la pila el numero
+                cadNum=""; //Reseteo el String
             }
             else {
                 switch(x){

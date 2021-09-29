@@ -18,8 +18,7 @@ public class GUI extends javax.swing.JFrame {
 
     public GUI() {
         initComponents();
-        lo = new Logic();
-        lo.init(entrada,resultado);
+        lo = new Logic(entrada,resultado);
         //textArea.setAlignment(textArea.RIGHT);
         //entrada.setAlignmentX(LEFT_ALIGNMENT);
         
@@ -314,7 +313,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        lo.deleteOne(entrada,resultado);
+        lo.deleteOne(entrada, resultado);
         /*if(lo.checkDouble()) entrada.setText(String.valueOf((int)num));
         else entrada.setText(String.valueOf(num));*/
     }//GEN-LAST:event_btnBorrarActionPerformed
@@ -344,7 +343,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnComaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComaActionPerformed
         // TODO add your handling code here:
-        lo.coma(entrada,resultado);
+        //lo.coma(entrada,resultado);
     }//GEN-LAST:event_btnComaActionPerformed
 
     /**
