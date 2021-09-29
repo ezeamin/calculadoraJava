@@ -15,13 +15,15 @@ public class Posfijo {
     private Pila s;
     private PilaDouble s2;
     private String posfijo;
-    private int n;
-    private double num;
+    /*private int n;
+    private double num;*/
+    private String cadNum;
     
     Posfijo(){
         s=new Pila(10);
         s2=new PilaDouble(10);
         posfijo="";
+        cadNum="";
     }
     
     public void reset(){
@@ -40,27 +42,15 @@ public class Posfijo {
         s.add('$');
         for(int i=0;true;i++){ //Se repite siempre, y va sumando i en 1 para ir al siguiente caracter  
             x=entrefijo.charAt(i);
-            
-            if(Character.isDigit(x)){
-                if(nuevaVuelta){
-                    num=Integer.parseInt(Character.toString(x));
-                    nuevaVuelta=false;
-                    System.out.println("num NV= "+num);
-                }
-                else if(num!=0){
-                    n=cantDigitos();
-                    num*=pow(10,n);
-                    num+=Integer.parseInt(Character.toString(x));
-                    System.out.println("n= "+n);
-                    System.out.println("num act= "+num);
-                }
-                
-                if ("".equals(posfijo)) posfijo=Character.toString(x); //posfijo empieza como null, por lo que debo inicializarlo con un valor
-                else posfijo+=Character.toString(x); //concateno a posfijo el caracter que extraí recien
-            }
+
+            if(Character.isDigit(x)) cadNum+=Character.toString(x);
             else{
-                nuevaVuelta=true;
-                //pasar num a variable y vaciar
+                if(!"".equals(cadNum)){
+                    posfijo+=cadNum;
+                    posfijo+=",";
+                    cadNum="";
+                }
+
                 switch(x){
                     /*case ')':{ //tira error
                         while(s.getLast()!='('){
@@ -76,7 +66,7 @@ public class Posfijo {
                             else posfijo+=Character.toString(s.pop());
                         }
                         posfijo+=Character.toString('$');
-                        //System.out.println(""+posfijo);
+                        System.out.println(""+posfijo);
                         return evaluar();
                     }
                     default:{
@@ -91,7 +81,7 @@ public class Posfijo {
         }
     }
     
-    private int cantDigitos(){
+    private int cantDigitos(double num){
         int i=0;
         
         while(num>=1){
@@ -99,7 +89,7 @@ public class Posfijo {
             i++;
         }
         
-        return i+1;
+        return i;
     }
     
     private int getPE(char x){
@@ -123,14 +113,23 @@ public class Posfijo {
     }
     
     public double evaluar(){
-        char x;
+        char x,y;
         double resultado;
+        String numCad="";
         
         for(int i=0;true;i++){
             x=posfijo.charAt(i);
             
+            if(x==',') continue; //Saltear si es coma
+            
             if(Character.isDigit(x)){
-                s2.add((double)(x-48)); //Agrego a la pila el numero (que se leyo como char y debe ser convertido)
+                while(Character.isDigit(x)){ //Si el caracter no es coma ni operador
+                    numCad+=x; //Concateno al numero total
+                    i++; //Recorro el string
+                    x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
+                }
+                s2.add(Double.parseDouble(numCad)); //Agrego a la pila el numero
+                numCad=""; //Reseteo el String
             }
             else {
                 switch(x){
