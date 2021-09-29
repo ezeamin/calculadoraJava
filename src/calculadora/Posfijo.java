@@ -32,13 +32,15 @@ public class Posfijo {
         entrefijo=entrefijo.concat("$");
         char x;
         
+        System.out.println(""+entrefijo);
+        
         reset();
 
         s.add('$');
         for(int i=0;true;i++){ //Se repite siempre, y va sumando i en 1 para ir al siguiente caracter  
             x=entrefijo.charAt(i);
 
-            if(Character.isDigit(x)) cadNum+=Character.toString(x);
+            if(Character.isDigit(x) || x=='.') cadNum+=Character.toString(x);
             else{
                 if(!"".equals(cadNum)){
                     posfijo+=cadNum;
@@ -107,7 +109,7 @@ public class Posfijo {
             if(x==',') continue; //Saltear si es coma
             
             if(Character.isDigit(x)){
-                while(Character.isDigit(x)){ //Si el caracter no es coma ni operador
+                while(Character.isDigit(x) || x=='.'){ //Si el caracter no es coma ni operador
                     cadNum+=x; //Concateno al numero total
                     i++; //Recorro el string
                     x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)

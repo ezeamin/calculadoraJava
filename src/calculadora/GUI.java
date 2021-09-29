@@ -343,6 +343,7 @@ public class GUI extends javax.swing.JFrame {
     private void btnComaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComaActionPerformed
         // TODO add your handling code here:
         //lo.coma(entrada,resultado);
+        lo.send(".",entrada,resultado);
     }//GEN-LAST:event_btnComaActionPerformed
 
     /**
