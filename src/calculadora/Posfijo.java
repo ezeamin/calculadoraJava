@@ -40,6 +40,8 @@ public class Posfijo {
         for(int i=0;true;i++){ //Se repite siempre, y va sumando i en 1 para ir al siguiente caracter  
             x=entrefijo.charAt(i);
 
+            if(x=='-' && "".equals(cadNum)) cadNum+=Character.toString(x); //numeros negativos
+            
             if(Character.isDigit(x) || x=='.') cadNum+=Character.toString(x);
             else{
                 if(!"".equals(cadNum)){
