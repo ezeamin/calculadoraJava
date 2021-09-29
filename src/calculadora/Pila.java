@@ -5,8 +5,6 @@
  */
 package calculadora;
 
-import java.util.Scanner;
-
 /**
  *
  * @author Eze
@@ -15,8 +13,6 @@ public class Pila {
     private char v[];
     private int tope;
     private int n; //maximo
-    
-    Scanner input = new Scanner(System.in);
     
     Pila(int _n){
         n=_n;
@@ -70,27 +66,7 @@ public class Pila {
         return 0;
     }
     
-    public int getN(){
-        return n;
-    }
-    
     public int getTope(){
         return tope;
-    }
-    
-    public int getLast(){
-        return v[tope];
-    }
-    
-    public void imprimir(){
-        System.out.printf("Pila: [ "+v[0]);
-        if (tope==0) System.out.println(" ]");
-        else for (int i=1;i<=tope;i++){
-            if (i==tope){
-                System.out.println(" , "+v[i]+" ]");
-            }
-            else System.out.printf(" , "+v[i]);
-            
-        }
     }
 }
