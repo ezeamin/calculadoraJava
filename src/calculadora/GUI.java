@@ -14,7 +14,6 @@ package calculadora;
 public class GUI extends javax.swing.JFrame {
     
     Logic lo;
-    double num;
 
     public GUI() {
         initComponents();

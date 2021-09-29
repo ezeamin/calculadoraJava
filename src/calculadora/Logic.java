@@ -12,8 +12,6 @@ import javax.swing.JTextArea;
  * @author EZEA2
  */
 public class Logic {
-    private double numActive;
-    private String operador;
     private boolean isComa; //Trabajar decimales y negativos
     private Posfijo pos;
     private String cadena;

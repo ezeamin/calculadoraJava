@@ -12,7 +12,6 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author EZEA2
  */
 public class Calculadora {
-    private static double num;
     /**
      * @param args the command line arguments
      */
@@ -28,7 +27,7 @@ public class Calculadora {
             //javax.swing.UIManager.setLookAndFeel(new com.jtattoo.plaf.hifi.HiFiLookAndFeel());
             javax.swing.UIManager.setLookAndFeel(new com.jtattoo.plaf.mcwin.McWinLookAndFeel());
         }
-        catch(Exception e){
+        catch(UnsupportedLookAndFeelException e){
             
         }
     }
