@@ -10,8 +10,8 @@ package calculadora;
  * @author EZEA2
  */
 public class Posfijo {
-    private Pila s;
-    private PilaDouble s2;
+    private final Pila s;
+    private final PilaDouble s2;
     private String posfijo;
     private String cadNum;
     
@@ -117,66 +117,62 @@ public class Posfijo {
             }
             catch(Exception e){}
             
-            if(Character.isDigit(x) || (x=='-' && (y!=',' || y!='$'))){
-                System.out.println("x="+x+", y="+y);
-                while(Character.isDigit(x) || x=='.' || x=='-'){
-                    cadNum+=x; //Concateno al numero total
-                    i++; //Recorro el string
-                    x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
-                }
-                s2.add(Double.parseDouble(cadNum)); //Agrego a la pila el numero
-                cadNum=""; //Reseteo el String
+            if(Character.isDigit(x)){
+                i=recorrerNum(x,i);
+                continue;
             }
-            /*if(Character.isDigit(x) || x=='-'){
-                if (y!=',' || y!='$'){
-                    System.out.println("hola");
+            else if(x=='-'){
+                if (y!=',' && y!='$'){
+                    i=recorrerNum(x,i);
+                    continue;
                 }
-                else {
-                    System.out.println("x="+x+", y="+y);
-                
-                    while(Character.isDigit(x) || x=='.' || x=='-'){
-                        cadNum+=x; //Concateno al numero total
-                        i++; //Recorro el string
-                        x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
-                    }
-                    s2.add(Double.parseDouble(cadNum)); //Agrego a la pila el numero
-                    cadNum=""; //Reseteo el String
+            }
+            
+            switch(x){
+                case '$':{
+                    resultado=s2.pop();
+                    return resultado;
                 }
-            }*/
-            else {
-                switch(x){
-                    case '$':{
-                        resultado=s2.pop();
-                        return resultado;
-                    }
-                    default:{
-                        double b=s2.pop(); //Extraigo primero b y luego a para obtener el orden original
-                        double a=s2.pop();
+                default:{
+                    double b=s2.pop(); //Extraigo primero b y luego a para obtener el orden original
+                    double a=s2.pop();
 
-                        switch(x){ //case '('????????
-                            case '+':{
-                                s2.add(a+b);
-                                break;
-                            }
-                            case '-':{
-                                s2.add(a-b);
-                                break;
-                            }
-                            case '*':{
-                                s2.add(a*b);
-                                break;
-                            }
-                            case '/':{
-                                s2.add(a/b);
-                                break;
-                            }
-                            case '^':{
-                                s2.add(Math.pow(a,b));   
-                            }
+                    switch(x){ //case '('????????
+                        case '+':{
+                            s2.add(a+b);
+                            break;
+                        }
+                        case '-':{
+                            s2.add(a-b);
+                            break;
+                        }
+                        case '*':{
+                            s2.add(a*b);
+                            break;
+                        }
+                        case '/':{
+                            s2.add(a/b);
+                            break;
+                        }
+                        case '^':{
+                            s2.add(Math.pow(a,b));   
                         }
                     }
                 }
             }
         }
     }
+    
+    private int recorrerNum(char x, int i){
+        while(Character.isDigit(x) || x=='.' || x=='-'){
+            cadNum+=x; //Concateno al numero total
+            i++; //Recorro el string
+            x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
+        }
+        s2.add(Double.parseDouble(cadNum)); //Agrego a la pila el numero
+        cadNum=""; //Reseteo el String
+        
+        return i;
+    }
 }
+
