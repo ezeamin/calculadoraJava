@@ -6,21 +6,21 @@
 package calculadora;
 
 import java.text.DecimalFormat;
-import javax.swing.JTextArea;
+import javax.swing.JTextArea; //Agregar math error, *+ se cambie a +, 1er ingreso solo num o coma, ingreso coma da error
 
 /**
  *
  * @author EZEA2
  */
 public class Logic {
-    private Posfijo pos;
+    private final Posfijo pos;
     private String cadena;
     private double res;
     private boolean entry;
     
     Logic(JTextArea entrada,JTextArea resultado){
-        entrada.setText("0");
-        resultado.setText("0");
+        entrada.setText("");
+        resultado.setText("");
         cadena="";
         pos=new Posfijo();
         res=0;
@@ -46,7 +46,7 @@ public class Logic {
             }
             res=0;
         }
-        else if("".equals(cadena)) resultado.setText("0");
+        else if("".equals(cadena)) resultado.setText("");
         
         cadena+=str;
         entrada.setText(cadena);
@@ -55,8 +55,8 @@ public class Logic {
     
     private void tempTotal(JTextArea entrada,JTextArea resultado){
         if("".equals(cadena)){
-            entrada.setText("0");
-            resultado.setText("0");
+            entrada.setText("");
+            resultado.setText("");
         }
         else if(syntaxError()){
         }
@@ -78,9 +78,9 @@ public class Logic {
     
     public void deleteOne(JTextArea entrada,JTextArea resultado){
         if("".equals(cadena)){
-            entrada.setText("0");
+            entrada.setText("");
             if(res!=0 && entry) {
-                resultado.setText("0");
+                resultado.setText("");
                 res=0;
                 cadena="";
             }
@@ -88,7 +88,7 @@ public class Logic {
         }
         else{ 
             cadena=cadena.substring(0, cadena.length()-1);
-            if("".equals(cadena)) entrada.setText("0");
+            if("".equals(cadena)) entrada.setText("");
             entrada.setText(cadena);
         }
         
@@ -118,7 +118,11 @@ public class Logic {
             resultado.setText("Syntax error");
         }
         else{
-            res=pos.convertir(cadena);
+            res=pos.convertir(cadena); 
+            if(Double.isInfinite(res)){
+                resultado.setText("Math error");
+                return;
+            }
             res=imprimirRes(res,resultado,entrada,true); //mando al reves para que me modifique la entrada
             cadena="";    
             entry=false;
@@ -133,7 +137,7 @@ public class Logic {
             resTemp=Double.parseDouble(temp.replace(',', '.'));
             resultado.setText(String.valueOf(resTemp));
         }
-        if(total) entrada.setText("0");
+        if(total) entrada.setText("");
         
         return resTemp;
     }

@@ -39,8 +39,11 @@ public class Posfijo {
         s.add('$');
         for(int i=0;true;i++){ //Se repite siempre, y va sumando i en 1 para ir al siguiente caracter  
             x=entrefijo.charAt(i);
-
-            if(x=='-' && "".equals(cadNum)) cadNum+=Character.toString(x); //numeros negativos
+            
+            if(x=='-' && "".equals(cadNum)){
+                cadNum+=Character.toString(x);
+                continue;
+            } //numeros negativos
             
             if(Character.isDigit(x) || x=='.') cadNum+=Character.toString(x);
             else{
@@ -65,18 +68,17 @@ public class Posfijo {
                             else posfijo+=Character.toString(s.pop());
                         }
                         posfijo+=Character.toString('$');
-                        System.out.println(""+posfijo);
+                        System.out.println("Pos: "+posfijo);
                         return evaluar();
                     }
                     default:{
                         while(s.getPP()>=getPE(x)){
-                            if ("".equals(posfijo)) posfijo=Character.toString(x);
-                            else posfijo+=Character.toString(s.pop());
+                            posfijo+=Character.toString(s.pop());
                         }
                         s.add(x);
                     }
                 }
-            }
+            } 
         }
     }
     
@@ -101,17 +103,23 @@ public class Posfijo {
     }
     
     public double evaluar(){
-        char x;
+        char x,y='!';
         double resultado;
         cadNum=""; //reseteo variable
         
         for(int i=0;true;i++){
             x=posfijo.charAt(i);
-            
+   
             if(x==',') continue; //Saltear si es coma
             
-            if(Character.isDigit(x)){
-                while(Character.isDigit(x) || x=='.'){ //Si el caracter no es coma ni operador
+            try{
+                y=posfijo.charAt(i+1);
+            }
+            catch(Exception e){}
+            
+            if(Character.isDigit(x) || (x=='-' && (y!=',' || y!='$'))){
+                System.out.println("x="+x+", y="+y);
+                while(Character.isDigit(x) || x=='.' || x=='-'){
                     cadNum+=x; //Concateno al numero total
                     i++; //Recorro el string
                     x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
@@ -119,6 +127,22 @@ public class Posfijo {
                 s2.add(Double.parseDouble(cadNum)); //Agrego a la pila el numero
                 cadNum=""; //Reseteo el String
             }
+            /*if(Character.isDigit(x) || x=='-'){
+                if (y!=',' || y!='$'){
+                    System.out.println("hola");
+                }
+                else {
+                    System.out.println("x="+x+", y="+y);
+                
+                    while(Character.isDigit(x) || x=='.' || x=='-'){
+                        cadNum+=x; //Concateno al numero total
+                        i++; //Recorro el string
+                        x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
+                    }
+                    s2.add(Double.parseDouble(cadNum)); //Agrego a la pila el numero
+                    cadNum=""; //Reseteo el String
+                }
+            }*/
             else {
                 switch(x){
                     case '$':{
