@@ -19,7 +19,6 @@ public class Posfijo {
         s=new Pila(10);
         s2=new PilaDouble(10);
         posfijo="";
-        cadNum="";
     }
     
     public void reset(){
@@ -66,6 +65,8 @@ public class Posfijo {
                         while(s.getTope()>0){
                             if (posfijo==null) posfijo=Character.toString(x);
                             else posfijo+=Character.toString(s.pop());
+                            
+                            posfijo+=",";
                         }
                         posfijo+=Character.toString('$');
                         System.out.println("Pos: "+posfijo);
@@ -74,6 +75,7 @@ public class Posfijo {
                     default:{
                         while(s.getPP()>=getPE(x)){
                             posfijo+=Character.toString(s.pop());
+                            posfijo+=",";
                         }
                         s.add(x);
                     }
@@ -103,59 +105,47 @@ public class Posfijo {
     }
     
     public double evaluar(){
-        char x,y='!';
+        char x;
+        String ret;
         double resultado;
-        cadNum=""; //reseteo variable
         
         for(int i=0;true;i++){
-            x=posfijo.charAt(i);
-   
-            if(x==',') continue; //Saltear si es coma
+            ret=separar();
             
-            try{
-                y=posfijo.charAt(i+1);
+            if(checkNumeric(ret)){
+                s2.add(Double.parseDouble(ret));
             }
-            catch(Exception e){}
-            
-            if(Character.isDigit(x)){
-                i=recorrerNum(x,i);
-                continue;
-            }
-            else if(x=='-'){
-                if (y!=',' && y!='$'){
-                    i=recorrerNum(x,i);
-                    continue;
-                }
-            }
-            
-            switch(x){
-                case '$':{
-                    resultado=s2.pop();
-                    return resultado;
-                }
-                default:{
-                    double b=s2.pop(); //Extraigo primero b y luego a para obtener el orden original
-                    double a=s2.pop();
+            else{
+                x=ret.charAt(0);
+                switch(x){
+                    case '$':{
+                        resultado=s2.pop();
+                        return resultado;
+                    }
+                    default:{
+                        double b=s2.pop(); //Extraigo primero b y luego a para obtener el orden original
+                        double a=s2.pop();
 
-                    switch(x){ //case '('????????
-                        case '+':{
-                            s2.add(a+b);
-                            break;
-                        }
-                        case '-':{
-                            s2.add(a-b);
-                            break;
-                        }
-                        case '*':{
-                            s2.add(a*b);
-                            break;
-                        }
-                        case '/':{
-                            s2.add(a/b);
-                            break;
-                        }
-                        case '^':{
-                            s2.add(Math.pow(a,b));   
+                        switch(x){ //case '('????????
+                            case '+':{
+                                s2.add(a+b);
+                                break;
+                            }
+                            case '-':{
+                                s2.add(a-b);
+                                break;
+                            }
+                            case '*':{
+                                s2.add(a*b);
+                                break;
+                            }
+                            case '/':{
+                                s2.add(a/b);
+                                break;
+                            }
+                            case '^':{
+                                s2.add(Math.pow(a,b));   
+                            }
                         }
                     }
                 }
@@ -163,16 +153,48 @@ public class Posfijo {
         }
     }
     
-    private int recorrerNum(char x, int i){
-        while(Character.isDigit(x) || x=='.' || x=='-'){
-            cadNum+=x; //Concateno al numero total
-            i++; //Recorro el string
-            x=posfijo.charAt(i); //Obtengo siguiente posicion (se corta el while si esto arroja un operador o coma)
-        }
-        s2.add(Double.parseDouble(cadNum)); //Agrego a la pila el numero
-        cadNum=""; //Reseteo el String
+    private String separar(){
+        if(posfijo==null) return null;
         
-        return i;
+        String substr="";
+        int i2=999;
+        
+        for(int i=0;i<posfijo.length();i++){
+            if(posfijo.charAt(i)==','){
+                 i2=i;
+                 if (i2!=0) break;
+            } 
+            
+            if(posfijo.charAt(i)=='$') return "$";
+        }
+        
+        
+        if(i2==999){
+            return posfijo;
+        }
+        
+        substr=posfijo.substring(0,i2);
+        posfijo=posfijo.substring(i2+1);
+        if("".equals(posfijo)) posfijo=null;
+        
+        //System.out.println("i1= "+i1+", i2= "+i2);
+        //System.out.println("sub: "+substr);
+        //System.out.println("pos: "+posfijo);
+        
+        return substr;
+    }
+    
+    private boolean checkNumeric(String temp){
+        if(temp==null) return false;
+        
+        try{
+            double d=Double.parseDouble(temp);
+        }
+        catch(Exception e){
+            return false;
+        }
+        
+        return true;
     }
 }
 
