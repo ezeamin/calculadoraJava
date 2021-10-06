@@ -6,7 +6,7 @@
 package calculadora;
 
 import java.text.DecimalFormat;
-import javax.swing.JTextArea; //Agregar math error, *+ se cambie a +, 1er ingreso solo num o coma, ingreso coma da error
+import javax.swing.JTextArea; //doble ., *+ se cambie a +, 1er ingreso solo num o coma (no **,/,etc)
 
 /**
  *
@@ -35,9 +35,9 @@ public class Logic {
                 res=0;
             }
         }
-        else if(".".equals(str) && !Character.isDigit(cadena.charAt(cadena.length()-1))) cadena+="0";
         
-        if(res!=0){
+        if(".".equals(str) && ("".equals(cadena) || !Character.isDigit(cadena.charAt(cadena.length()-1)))) cadena+="0"; //agregar 0 antes de un .
+        else if(res!=0){
             if(!Character.isDigit(str.charAt(0))){
                 if(checkDouble(res)){
                     cadena+=String.valueOf((int)res);
@@ -48,6 +48,8 @@ public class Logic {
             res=0;
         }
         else if("".equals(cadena)) resultado.setText("");
+        
+        
         
         cadena+=str;
         entrada.setText(cadena);
@@ -71,7 +73,12 @@ public class Logic {
         int temp1=(int)_num;
         double temp2=_num-temp1;
         
-        if (temp2 > 0) {
+        /*System.out.println("_num= "+_num);
+        System.out.println("temp1= "+temp1);
+        System.out.println("temp2= "+temp2);*/
+        
+        if (temp2 != 0) {
+            System.out.println("es decimal");
             return false;
         }
         return true;
@@ -94,7 +101,6 @@ public class Logic {
 
         entrada.setText(cadena);
 
-        
         tempTotal(entrada,resultado);
         
     }
@@ -111,8 +117,24 @@ public class Logic {
         return false;
     }
     
+    private boolean doblePunto(){
+        boolean entry=false;
+        
+        for(int i=0;i<cadena.length();i++){
+            if(cadena.charAt(i)=='.' && !entry){
+                entry=true;
+            }
+            else if(cadena.charAt(i)=='.'){ //se detecta el doble punto
+                return true;
+            }
+            else if(cadena.charAt(i)=='+' || cadena.charAt(i)=='/' || cadena.charAt(i)=='*'  || cadena.charAt(i)=='-') entry=false;
+        }
+        
+        return false;
+    }
+    
     private boolean syntaxError(){
-        return !Character.isDigit(cadena.charAt(cadena.length()-1)) || (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || dobleOperador()) ;
+        return !Character.isDigit(cadena.charAt(cadena.length()-1)) || (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || dobleOperador() || doblePunto()) ;
     }
     
     public void total(JTextArea entrada,JTextArea resultado){
