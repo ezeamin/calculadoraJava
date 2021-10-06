@@ -6,7 +6,7 @@
 package calculadora;
 
 import java.text.DecimalFormat;
-import javax.swing.JTextArea; //doble ., *+ se cambie a +, 1er ingreso solo num o coma (no **,/,etc)
+import javax.swing.JTextArea; // *+ se cambie a +, 1er ingreso solo num o coma (no **,/,etc)
 
 /**
  *
@@ -36,6 +36,8 @@ public class Logic {
             }
         }
         
+        System.out.println("res "+res);
+        
         if(".".equals(str) && ("".equals(cadena) || !Character.isDigit(cadena.charAt(cadena.length()-1)))) cadena+="0"; //agregar 0 antes de un .
         else if(res!=0){
             if(!Character.isDigit(str.charAt(0))){
@@ -49,7 +51,12 @@ public class Logic {
         }
         else if("".equals(cadena)) resultado.setText("");
         
-        
+        if(str.charAt(0)=='+' || str.charAt(0)=='/' || str.charAt(0)=='*'){
+            /*if(cadena.charAt(cadena.length()-1)=='*' || cadena.charAt(cadena.length()-1)=='/' || cadena.charAt(cadena.length()-1)=='-' || cadena.charAt(cadena.length()-1)=='+'){
+                cadena=cadena.substring(0, cadena.length()-1);
+            }*/
+            if(!Character.isDigit(cadena.charAt(cadena.length()-1))) cadena=cadena.substring(0, cadena.length()-1);
+        }
         
         cadena+=str;
         entrada.setText(cadena);
@@ -72,13 +79,8 @@ public class Logic {
     public boolean checkDouble(double _num){
         int temp1=(int)_num;
         double temp2=_num-temp1;
-        
-        /*System.out.println("_num= "+_num);
-        System.out.println("temp1= "+temp1);
-        System.out.println("temp2= "+temp2);*/
-        
+
         if (temp2 != 0) {
-            System.out.println("es decimal");
             return false;
         }
         return true;
