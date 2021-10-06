@@ -19,12 +19,14 @@ public class Posfijo {
         s=new Pila(10);
         s2=new PilaDouble(10);
         posfijo="";
+        cadNum="";
     }
     
     public void reset(){
         s.reset();
         s2.reset();
         posfijo="";
+        cadNum="";
     }
     
     public double convertir(String entrefijo){
@@ -32,7 +34,6 @@ public class Posfijo {
         char x;
         
         System.out.println(""+entrefijo);
-        
         reset();
 
         s.add('$');
@@ -120,6 +121,7 @@ public class Posfijo {
                 switch(x){
                     case '$':{
                         resultado=s2.pop();
+                        if(resultado==-9999999) return 0;
                         return resultado;
                     }
                     default:{

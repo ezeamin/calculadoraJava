@@ -44,6 +44,7 @@ public class Logic {
                 }
                 else cadena+=String.valueOf(res);
             }
+            entry=false;
             res=0;
         }
         else if("".equals(cadena)) resultado.setText("");
@@ -77,20 +78,22 @@ public class Logic {
     }
     
     public void deleteOne(JTextArea entrada,JTextArea resultado){
-        if("".equals(cadena)){
-            entrada.setText("");
-            if(res!=0 && entry) {
-                resultado.setText("");
-                res=0;
-                cadena="";
-            }
-            entry=true;
+        if("".equals(cadena) && entry==false) {
+            return;
         }
-        else{ 
+        if(entry==true){
+            cadena="";
+            res=0;
+            entry=false;
+            System.out.println("holi");
+        }
+        else{
             cadena=cadena.substring(0, cadena.length()-1);
-            if("".equals(cadena)) entrada.setText("");
-            entrada.setText(cadena);
+            //if("".equals(cadena)) entrada.setText("");
         }
+
+        entrada.setText(cadena);
+
         
         tempTotal(entrada,resultado);
         
@@ -125,7 +128,7 @@ public class Logic {
             }
             res=imprimirRes(res,resultado,entrada,true); //mando al reves para que me modifique la entrada
             cadena="";    
-            entry=false;
+            entry=true;
         }
     }
     

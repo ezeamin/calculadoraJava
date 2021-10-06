@@ -39,7 +39,7 @@ public class PilaDouble {
     public double pop(){
         if (tope==-1){
             //System.out.println("Pila vacia"); //Comentadas porque no necesito esta informacion siendo mostrada
-            return -100;
+            return -9999999;
         }
         double x=v[tope];
         tope--;
