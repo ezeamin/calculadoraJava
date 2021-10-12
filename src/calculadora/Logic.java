@@ -6,7 +6,7 @@
 package calculadora;
 
 import java.text.DecimalFormat;
-import javax.swing.JTextArea; // *+ se cambie a +, 1er ingreso solo num o coma (no **,/,etc)
+import javax.swing.JTextArea; // 1er ingreso solo num o coma (no **,/,etc)
 
 /**
  *
@@ -27,7 +27,27 @@ public class Logic {
         entry=false;
     }
     
-    public void send(String str,JTextArea entrada,JTextArea resultado){
+    public void send(String str,JTextArea entrada,JTextArea resultado){  
+        if(checkOperador(str)) return;
+
+        limpiarSyntax(str,resultado);
+
+        agregarCero(str,resultado);
+        checkDobleOperador(str);
+
+        cadena+=str;
+        entrada.setText(cadena);
+        tempTotal(entrada,resultado);
+    }
+    
+    private boolean checkOperador(String str){ //Primer digito un operador, no hacer nada
+        if(("".equals(cadena) && res==0) && (!Character.isDigit(str.charAt(0)) && str.charAt(0)!='-')){
+            return true;
+        }
+        return false;
+    }
+    
+    private void limpiarSyntax(String str, JTextArea resultado){
         if(resultado.getText().equals("Syntax error")){ //limpiar pantalla si se ingresa un operador con syntax error
             if(!Character.isDigit(str.charAt(0)) && str.charAt(0)!='.'){
                 cadena="";
@@ -35,9 +55,9 @@ public class Logic {
                 res=0;
             }
         }
-        
-        System.out.println("res "+res);
-        
+    }
+    
+    private void agregarCero(String str, JTextArea resultado){ //al poner solo '.', agregar un 0
         if(".".equals(str) && ("".equals(cadena) || !Character.isDigit(cadena.charAt(cadena.length()-1)))) cadena+="0"; //agregar 0 antes de un .
         else if(res!=0){
             if(!Character.isDigit(str.charAt(0))){
@@ -50,20 +70,20 @@ public class Logic {
             res=0;
         }
         else if("".equals(cadena)) resultado.setText("");
-        
-        if(str.charAt(0)=='+' || str.charAt(0)=='/' || str.charAt(0)=='*'){
-            /*if(cadena.charAt(cadena.length()-1)=='*' || cadena.charAt(cadena.length()-1)=='/' || cadena.charAt(cadena.length()-1)=='-' || cadena.charAt(cadena.length()-1)=='+'){
-                cadena=cadena.substring(0, cadena.length()-1);
-            }*/
-            if(!Character.isDigit(cadena.charAt(cadena.length()-1))) cadena=cadena.substring(0, cadena.length()-1);
-        }
-        
-        cadena+=str;
-        entrada.setText(cadena);
-        tempTotal(entrada,resultado);
     }
     
-    private void tempTotal(JTextArea entrada,JTextArea resultado){
+    private void checkDobleOperador(String str){ //No permite se pongan multiples operadores juntos a menos que sea un menos
+        try{
+            char x=cadena.charAt(cadena.length()-1);
+            if(str.charAt(0)=='+' || str.charAt(0)=='/' || str.charAt(0)=='*'){ //reemplazo doble operador, considerando el caso negativo
+                if(!Character.isDigit(x)) cadena=cadena.substring(0, cadena.length()-1);
+            }
+            else if(str.charAt(0)=='-' && (x=='+' || x=='-')) cadena=cadena.substring(0, cadena.length()-1);
+        }
+        catch(Exception e){}
+    }
+    
+    private void tempTotal(JTextArea entrada,JTextArea resultado){ //Total temporal que se va mostrando por pantalla
         if("".equals(cadena)){
             entrada.setText("");
             resultado.setText("");
@@ -76,7 +96,7 @@ public class Logic {
         }
     }
 
-    public boolean checkDouble(double _num){
+    public boolean checkDouble(double _num){ //Detecta si un numero es decimal
         int temp1=(int)_num;
         double temp2=_num-temp1;
 
@@ -86,7 +106,7 @@ public class Logic {
         return true;
     }
     
-    public void deleteOne(JTextArea entrada,JTextArea resultado){
+    public void deleteOne(JTextArea entrada,JTextArea resultado){ //"CE"
         if("".equals(cadena) && entry==false) {
             return;
         }
@@ -107,19 +127,7 @@ public class Logic {
         
     }
     
-    private boolean dobleOperador(){
-        //System.out.println("length="+cadena.length());
-        for(int i=0;i<cadena.length();i++){
-            if(!Character.isDigit(cadena.charAt(i)) && i!=(cadena.length()-1)){
-                if((!Character.isDigit(cadena.charAt(i+1))) && cadena.charAt(i+1)!='-') return true; //hay un doble operador
-                //System.out.println("x="+cadena.charAt(i)+",i="+i);
-            }
-        }
-        
-        return false;
-    }
-    
-    private boolean doblePunto(){
+    private boolean doblePunto(){ //Para que salte Syntax error de haber mas de un punto
         boolean entry=false;
         
         for(int i=0;i<cadena.length();i++){
@@ -136,7 +144,7 @@ public class Logic {
     }
     
     private boolean syntaxError(){
-        return !Character.isDigit(cadena.charAt(cadena.length()-1)) || (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || dobleOperador() || doblePunto()) ;
+        return !Character.isDigit(cadena.charAt(cadena.length()-1)) || (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) ;
     }
     
     public void total(JTextArea entrada,JTextArea resultado){
@@ -150,7 +158,7 @@ public class Logic {
                 resultado.setText("Math error");
                 return;
             }
-            res=imprimirRes(res,resultado,entrada,true); //mando al reves para que me modifique la entrada
+            res=imprimirRes(res,resultado,entrada,true); //mando al reves resultado y entrada para que me modifique la entrada
             cadena="";    
             entry=true;
         }
@@ -164,7 +172,8 @@ public class Logic {
             resTemp=Double.parseDouble(temp.replace(',', '.'));
             resultado.setText(String.valueOf(resTemp));
         }
-        if(total) entrada.setText("");
+        
+        if(total) entrada.setText(""); //boolean total indica desde donde se llamo al metodo, y por ende si se quiere reemplazar la entrada con null
         
         return resTemp;
     }

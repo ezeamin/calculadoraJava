@@ -54,7 +54,7 @@ public class Posfijo {
                 }
 
                 switch(x){
-                    /*case ')':{ //tira error
+                    /*case ')':{
                         while(s.getLast()!='('){
                             if (posfijo==null) posfijo=Character.toString(x);
                             else posfijo+=Character.toString(s.pop());
@@ -128,7 +128,7 @@ public class Posfijo {
                         double b=s2.pop(); //Extraigo primero b y luego a para obtener el orden original
                         double a=s2.pop();
 
-                        switch(x){ //case '('????????
+                        switch(x){ 
                             case '+':{
                                 s2.add(a+b);
                                 break;
@@ -158,7 +158,7 @@ public class Posfijo {
     private String separar(){
         if(posfijo==null) return null;
         
-        String substr="";
+        String substr;
         int i2=999;
         
         for(int i=0;i<posfijo.length();i++){
