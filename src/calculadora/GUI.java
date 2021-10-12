@@ -5,8 +5,6 @@
  */
 package calculadora;
 
-//import javax.swing.UnsupportedLookAndFeelException;
-
 /**
  *
  * @author EZEA2
@@ -17,10 +15,7 @@ public class GUI extends javax.swing.JFrame {
 
     public GUI() {
         initComponents();
-        lo = new Logic(entrada,resultado);
-        //textArea.setAlignment(textArea.RIGHT);
-        //entrada.setAlignmentX(LEFT_ALIGNMENT);
-        
+        lo = new Logic(entrada,resultado);  //Inicializo el objeto de tipo Logic   
     }
 
     /**
@@ -261,7 +256,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDivisionActionPerformed
         // TODO add your handling code here:
-        //lo.oper("/",entrada,resultado);
         lo.send("/",entrada,resultado);
     }//GEN-LAST:event_btnDivisionActionPerformed
 
@@ -313,25 +307,20 @@ public class GUI extends javax.swing.JFrame {
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
         lo.deleteOne(entrada, resultado);
-        /*if(lo.checkDouble()) entrada.setText(String.valueOf((int)num));
-        else entrada.setText(String.valueOf(num));*/
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumaActionPerformed
         // TODO add your handling code here:
-        //lo.oper("+",entrada,resultado);
         lo.send("+",entrada,resultado);
     }//GEN-LAST:event_btnSumaActionPerformed
 
     private void btnRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaActionPerformed
         // TODO add your handling code here:
-        //lo.oper("-",entrada,resultado);
         lo.send("-",entrada,resultado);
     }//GEN-LAST:event_btnRestaActionPerformed
 
     private void btnMultiplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultiplicacionActionPerformed
         // TODO add your handling code here:
-        //lo.oper("*",entrada,resultado);
         lo.send("*",entrada,resultado);
     }//GEN-LAST:event_btnMultiplicacionActionPerformed
 
@@ -342,46 +331,9 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnComaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComaActionPerformed
         // TODO add your handling code here:
-        //lo.coma(entrada,resultado);
         lo.send(".",entrada,resultado);
     }//GEN-LAST:event_btnComaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        /*try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    System.out.println("hola");
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }*/
-        //</editor-fold>*/
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI().setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn0;
     private javax.swing.JButton btn1;

@@ -6,7 +6,7 @@
 package calculadora;
 
 import java.text.DecimalFormat;
-import javax.swing.JTextArea; // 1er ingreso solo num o coma (no **,/,etc)
+import javax.swing.JTextArea;
 
 /**
  *
@@ -27,7 +27,7 @@ public class Logic {
         entry=false;
     }
     
-    public void send(String str,JTextArea entrada,JTextArea resultado){  
+    public void send(String str,JTextArea entrada,JTextArea resultado){  //metodo que recibe ingresos de la calculadora
         if(checkOperador(str)) return;
 
         limpiarSyntax(str,resultado);

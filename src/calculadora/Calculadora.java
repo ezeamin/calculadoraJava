@@ -5,8 +5,6 @@
  */
 package calculadora;
 
-import javax.swing.UnsupportedLookAndFeelException;
-
 /**
  *
  * @author EZEA2
@@ -22,15 +20,5 @@ public class Calculadora {
         GUI ventana = new GUI();
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
-  
-        try{
-            //javax.swing.UIManager.setLookAndFeel(new com.jtattoo.plaf.hifi.HiFiLookAndFeel());
-            javax.swing.UIManager.setLookAndFeel(new com.jtattoo.plaf.mcwin.McWinLookAndFeel());
-        }
-        catch(UnsupportedLookAndFeelException e){
-            
-        }
     }
-    
-    
 }

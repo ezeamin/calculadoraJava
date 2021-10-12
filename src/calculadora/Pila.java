@@ -48,9 +48,9 @@ public class Pila {
     
     public int getPP(){
         switch(v[tope]){
-            case '^':{
+            /*case '^':{
                 return 3;
-            }
+            }*/
             case '*':
             case '/':{
                 return 2;

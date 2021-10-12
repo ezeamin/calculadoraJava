@@ -87,9 +87,9 @@ public class Posfijo {
     
     private int getPE(char x){
         switch(x){
-            case '^':{
+            /*case '^':{
                 return 4;
-            }
+            }*/
             case '*':
             case '/':{
                 return 2;
@@ -111,17 +111,17 @@ public class Posfijo {
         double resultado;
         
         for(int i=0;true;i++){
-            ret=separar();
+            ret=separar(); //obtengo el siguiente substr (valores entre comas)
             
-            if(checkNumeric(ret)){
+            if(checkNumeric(ret)){ //mi substr puede ser un operando o un operador
                 s2.add(Double.parseDouble(ret));
             }
-            else{
-                x=ret.charAt(0);
+            else{ //caso de operadores
+                x=ret.charAt(0); //si es operador, es un unico caracter y lo trabajo como tal utilizando la variable x
                 switch(x){
                     case '$':{
                         resultado=s2.pop();
-                        if(resultado==-9999999) return 0;
+                        if(resultado==-9999999) return 0; //s2.pop() devuelve -9999999 cuando la pila esta vacia 
                         return resultado;
                     }
                     default:{
@@ -156,33 +156,23 @@ public class Posfijo {
     }
     
     private String separar(){
-        if(posfijo==null) return null;
+        if(posfijo==null) return null; //caso que el string venga vacio
         
         String substr;
         int i2=999;
         
         for(int i=0;i<posfijo.length();i++){
-            if(posfijo.charAt(i)==','){
+            if(posfijo.charAt(i)==','){ //Llegar hasta la siguiente coma y cortar
                  i2=i;
-                 if (i2!=0) break;
+                 break;
             } 
             
-            if(posfijo.charAt(i)=='$') return "$";
-        }
-        
-        
-        if(i2==999){
-            return posfijo;
+            if(posfijo.charAt(i)=='$') return "$"; //Llega al final del string
         }
         
         substr=posfijo.substring(0,i2);
-        posfijo=posfijo.substring(i2+1);
-        if("".equals(posfijo)) posfijo=null;
-        
-        //System.out.println("i1= "+i1+", i2= "+i2);
-        //System.out.println("sub: "+substr);
-        //System.out.println("pos: "+posfijo);
-        
+        posfijo=posfijo.substring(i2+1); //preparo posfijo para siguiente vuelta, sacandole lo que ya esta analizado
+
         return substr;
     }
     
