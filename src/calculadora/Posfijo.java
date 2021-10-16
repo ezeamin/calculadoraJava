@@ -54,14 +54,18 @@ public class Posfijo {
                 }
 
                 switch(x){
-                    /*case ')':{
+                    case ')':{
                         while(s.getLast()!='('){
                             if (posfijo==null) posfijo=Character.toString(x);
                             else posfijo+=Character.toString(s.pop());
+                            
+                            posfijo+=",";
                         }
-                        posfijo+=Character.toString(s.pop()); //Imprimir '(', ya que el while lo va a saltear al encontrarlo
+                        Character.toString(s.pop()); //elimino el '(' de la pila
+                        /*posfijo+=Character.toString(s.pop()); //Imprimir '(', ya que el while lo va a saltear al encontrarlo
+                        posfijo+=",";*/
                         break;
-                    }*/
+                    }
                     case '$':{
                         while(s.getTope()>0){
                             if (posfijo==null) posfijo=Character.toString(x);
@@ -87,9 +91,9 @@ public class Posfijo {
     
     private int getPE(char x){
         switch(x){
-            /*case '^':{
+            case '↑':{
                 return 4;
-            }*/
+            }
             case '*':
             case '/':{
                 return 2;
@@ -98,9 +102,9 @@ public class Posfijo {
             case '-':{
                 return 1;
             }
-            /*case '(':{
+            case '(':{
                 return 4;
-            }*/
+            }
         }
         return 0;
     }
@@ -145,7 +149,7 @@ public class Posfijo {
                                 s2.add(a/b);
                                 break;
                             }
-                            case '^':{
+                            case '↑':{
                                 s2.add(Math.pow(a,b));   
                             }
                         }

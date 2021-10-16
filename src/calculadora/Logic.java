@@ -6,7 +6,7 @@
 package calculadora;
 
 import java.text.DecimalFormat;
-import javax.swing.JTextArea;
+import javax.swing.JTextArea; //reactivar syntax error
 
 /**
  *
@@ -17,6 +17,7 @@ public class Logic {
     private String cadena;
     private double res;
     private boolean entry;
+    private boolean hayParentesis;
     
     Logic(JTextArea entrada,JTextArea resultado){
         entrada.setText("");
@@ -28,20 +29,31 @@ public class Logic {
     }
     
     public void send(String str,JTextArea entrada,JTextArea resultado){  //metodo que recibe ingresos de la calculadora
+        str=checkPi(str);
         if(checkOperador(str)) return;
 
         limpiarSyntax(str,resultado);
 
         agregarCero(str,resultado);
         checkDobleOperador(str);
-
+        
         cadena+=str;
         entrada.setText(cadena);
         tempTotal(entrada,resultado);
     }
     
+    private String checkPi(String str){
+        if("π".equals(str)){
+            if(cadena.length()!=0 && cadena.charAt(cadena.length()-1)!='*'){
+                str="*3.14";
+            }
+            else str="3.14";
+        }
+        return str;
+    }
+    
     private boolean checkOperador(String str){ //Primer digito un operador, no hacer nada
-        if(("".equals(cadena) && res==0) && (!Character.isDigit(str.charAt(0)) && str.charAt(0)!='-')){
+        if(("".equals(cadena) && res==0) && (!Character.isDigit(str.charAt(0)) && str.charAt(0)!='-' && str.charAt(0)!='.')){ //exceptuar - y .
             return true;
         }
         return false;
@@ -143,8 +155,32 @@ public class Logic {
         return false;
     }
     
+    private boolean parentesisCompletos(){
+        char x;
+        int cont=0;
+        hayParentesis=false;
+        
+        for(int i=0;i<cadena.length();i++){
+            x=cadena.charAt(i);
+            
+            if(x=='(') {
+                hayParentesis=true;
+                cont++;
+            }
+            else if(x==')') cont--;
+        }
+        
+        return hayParentesis && cont==0;
+    }
+    
     private boolean syntaxError(){
-        return !Character.isDigit(cadena.charAt(cadena.length()-1)) || (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) ;
+        if(!Character.isDigit(cadena.charAt(cadena.length()-1))) return !parentesisCompletos();
+        //return (!Character.isDigit(cadena.charAt(cadena.length()-1)) || cadena.charAt(cadena.length()-1)==')') || (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) ;
+        if(!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) return true;
+        if(hayParentesis && !parentesisCompletos()) return true;
+
+        return false;
+        //return (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) || !parentesisCompletos();
     }
     
     public void total(JTextArea entrada,JTextArea resultado){

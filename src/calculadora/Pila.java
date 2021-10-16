@@ -46,11 +46,15 @@ public class Pila {
         return x;
     }
     
+    public char getLast(){
+        return v[tope];
+    }
+    
     public int getPP(){
         switch(v[tope]){
-            /*case '^':{
+            case '↑':{
                 return 3;
-            }*/
+            }
             case '*':
             case '/':{
                 return 2;
@@ -59,9 +63,9 @@ public class Pila {
             case '-':{
                 return 1;
             }
-            /*case '(':{
+            case '(':{
                 return 0;
-            }*/
+            }
         }
         return 0;
     }
