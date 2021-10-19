@@ -6,7 +6,7 @@
 package calculadora;
 
 import java.text.DecimalFormat;
-import javax.swing.JTextArea; //reactivar syntax error
+import javax.swing.JTextArea;
 
 /**
  *
@@ -18,6 +18,7 @@ public class Logic {
     private double res;
     private boolean entry;
     private boolean hayParentesis;
+    private int cont;
     
     Logic(JTextArea entrada,JTextArea resultado){
         entrada.setText("");
@@ -29,22 +30,34 @@ public class Logic {
     }
     
     public void send(String str,JTextArea entrada,JTextArea resultado){  //metodo que recibe ingresos de la calculadora
-        str=checkPi(str);
-        if(checkOperador(str)) return;
-
+        str=checkPi(str,resultado);
         limpiarSyntax(str,resultado);
+        
+        if(checkOperador(str)) return;
 
         agregarCero(str,resultado);
         checkDobleOperador(str);
+        checkParentesisYNum(str);
         
         cadena+=str;
         entrada.setText(cadena);
         tempTotal(entrada,resultado);
     }
     
-    private String checkPi(String str){
+    private void checkParentesisYNum(String str){
+        if(str.charAt(0)=='('){
+            try{
+                if(Character.isDigit(cadena.charAt(cadena.length()-1))) cadena+="*";
+                else if (cadena.charAt(cadena.length()-1)=='-') cadena+="1*";
+            }
+            catch(Exception e){}
+        }
+    }
+    
+    private String checkPi(String str, JTextArea resultado){
         if("π".equals(str)){
-            if(cadena.length()!=0 && cadena.charAt(cadena.length()-1)!='*'){
+            if(resultado.getText().equals("Syntax error")) str="3.14";
+            else if(cadena.length()!=0 && cadena.charAt(cadena.length()-1)!='*'){
                 str="*3.14";
             }
             else str="3.14";
@@ -52,20 +65,18 @@ public class Logic {
         return str;
     }
     
-    private boolean checkOperador(String str){ //Primer digito un operador, no hacer nada
-        if(("".equals(cadena) && res==0) && (!Character.isDigit(str.charAt(0)) && str.charAt(0)!='-' && str.charAt(0)!='.')){ //exceptuar - y .
-            return true;
-        }
-        return false;
+    private boolean checkOperador(String str){//Primer digito un operador, no hacer nada (exceptuar - y .)
+        return ("".equals(cadena) && res==0) && (!Character.isDigit(str.charAt(0)) && str.charAt(0)!='-' && str.charAt(0)!='.' && str.charAt(0)!='(');
     }
     
     private void limpiarSyntax(String str, JTextArea resultado){
-        if(resultado.getText().equals("Syntax error")){ //limpiar pantalla si se ingresa un operador con syntax error
-            if(!Character.isDigit(str.charAt(0)) && str.charAt(0)!='.'){
+        if(resultado.getText().equals("Syntax error") || resultado.getText().equals("Math error")){ //limpiar pantalla si se ingresa un operador con syntax error
+            if(!Character.isDigit(str.charAt(0)) && str.charAt(0)!='.' && str.charAt(0)!='('){
                 cadena="";
-                resultado.setText("0");
+                resultado.setText("");
                 res=0;
             }
+            else resultado.setText("");
         }
     }
     
@@ -87,6 +98,7 @@ public class Logic {
     private void checkDobleOperador(String str){ //No permite se pongan multiples operadores juntos a menos que sea un menos
         try{
             char x=cadena.charAt(cadena.length()-1);
+            if(x==')') return;
             if(str.charAt(0)=='+' || str.charAt(0)=='/' || str.charAt(0)=='*'){ //reemplazo doble operador, considerando el caso negativo
                 if(!Character.isDigit(x)) cadena=cadena.substring(0, cadena.length()-1);
             }
@@ -95,27 +107,47 @@ public class Logic {
         catch(Exception e){}
     }
     
-    private void tempTotal(JTextArea entrada,JTextArea resultado){ //Total temporal que se va mostrando por pantalla
+    private void tempTotal(JTextArea entrada,JTextArea resultado){ //Total temporal que se va mostrando por pantalla       
         if("".equals(cadena)){
             entrada.setText("");
             resultado.setText("");
+        }
+        else if(hayParentesis && !parentesisCompletos() && Character.isDigit(cadena.charAt(cadena.length()-1))){
+            for(int i=0;i<cont;i++){ //agrego tantos parentesis como falten
+                cadena+=")";    
+            }   
+            double resTemp=pos.convertir(cadena);
+            imprimirRes(resTemp,entrada,resultado,false);
+            
+            for(int i=0;i<cont;i++){ //agrego tantos parentesis como falten
+                cadena=cadena.substring(0,cadena.length()-1);   
+            } 
         }
         else if(syntaxError()){
         }
         else{
             double resTemp=pos.convertir(cadena);
-            imprimirRes(resTemp,entrada,resultado,false);
+            if(Double.isNaN(resTemp)) return;
+            if(hayOperadores()) imprimirRes(resTemp,entrada,resultado,false);
         }
+    }
+    
+    private boolean hayOperadores(){ //impide que se imprima un resultado temporal sin haber operaciones
+        char x;
+        
+        for(int i=0;i<cadena.length();i++){
+            x=cadena.charAt(i);
+            if(x=='+' || x=='*' || x=='/' || x=='↑' || (x=='-' && i!=0)) return true;
+        }
+        
+        return false;
     }
 
     public boolean checkDouble(double _num){ //Detecta si un numero es decimal
         int temp1=(int)_num;
         double temp2=_num-temp1;
 
-        if (temp2 != 0) {
-            return false;
-        }
-        return true;
+        return temp2 == 0;
     }
     
     public void deleteOne(JTextArea entrada,JTextArea resultado){ //"CE"
@@ -126,11 +158,9 @@ public class Logic {
             cadena="";
             res=0;
             entry=false;
-            System.out.println("holi");
         }
         else{
             cadena=cadena.substring(0, cadena.length()-1);
-            //if("".equals(cadena)) entrada.setText("");
         }
 
         entrada.setText(cadena);
@@ -140,16 +170,16 @@ public class Logic {
     }
     
     private boolean doblePunto(){ //Para que salte Syntax error de haber mas de un punto
-        boolean entry=false;
+        boolean entrar=false;
         
         for(int i=0;i<cadena.length();i++){
-            if(cadena.charAt(i)=='.' && !entry){
-                entry=true;
+            if(cadena.charAt(i)=='.' && !entrar){
+                entrar=true;
             }
             else if(cadena.charAt(i)=='.'){ //se detecta el doble punto
                 return true;
             }
-            else if(cadena.charAt(i)=='+' || cadena.charAt(i)=='/' || cadena.charAt(i)=='*'  || cadena.charAt(i)=='-') entry=false;
+            else if(cadena.charAt(i)=='+' || cadena.charAt(i)=='/' || cadena.charAt(i)=='*'  || cadena.charAt(i)=='-') entrar=false;
         }
         
         return false;
@@ -157,7 +187,7 @@ public class Logic {
     
     private boolean parentesisCompletos(){
         char x;
-        int cont=0;
+        cont=0;
         hayParentesis=false;
         
         for(int i=0;i<cadena.length();i++){
@@ -173,31 +203,40 @@ public class Logic {
         return hayParentesis && cont==0;
     }
     
-    private boolean syntaxError(){
-        if(!Character.isDigit(cadena.charAt(cadena.length()-1))) return !parentesisCompletos();
-        //return (!Character.isDigit(cadena.charAt(cadena.length()-1)) || cadena.charAt(cadena.length()-1)==')') || (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) ;
-        if(!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) return true;
+    private boolean syntaxError(){ //devuelve false si esta todo correcto, true si hay syntax error
+        char x=cadena.charAt(cadena.length()-1);
+        
         if(hayParentesis && !parentesisCompletos()) return true;
-
-        return false;
-        //return (!Character.isDigit(cadena.charAt(0)) && !(cadena.charAt(0)=='-') || doblePunto()) || !parentesisCompletos();
+        if(!Character.isDigit(x)) {
+            if(cadena.charAt(cadena.length()-1)==')') return !parentesisCompletos();
+            if(parentesisCompletos()) return true;
+            return true;
+        }
+        return doblePunto();
     }
     
     public void total(JTextArea entrada,JTextArea resultado){
-        if(res!=0) {} 
+        if(res!=0) {return;}
+        else if(hayParentesis && !parentesisCompletos() && Character.isDigit(cadena.charAt(cadena.length()-1))){
+            for(int i=0;i<cont;i++){ //agrego tantos parentesis como falten
+                cadena+=")";    
+            }   
+            double resTemp=pos.convertir(cadena);
+            imprimirRes(resTemp,entrada,resultado,false);
+        }
         else if(syntaxError()){
             resultado.setText("Syntax error");
+            return;
         }
-        else{
-            res=pos.convertir(cadena); 
-            if(Double.isInfinite(res)){
-                resultado.setText("Math error");
-                return;
-            }
-            res=imprimirRes(res,resultado,entrada,true); //mando al reves resultado y entrada para que me modifique la entrada
-            cadena="";    
-            entry=true;
+        
+        res=pos.convertir(cadena); 
+        if(Double.isInfinite(res) || Double.isNaN(res)){
+            resultado.setText("Math error");
+            return;
         }
+        res=imprimirRes(res,resultado,entrada,true); //mando al reves resultado y entrada para que me modifique la entrada
+        cadena="";    
+        entry=true;
     }
     
     public double imprimirRes(double resTemp,JTextArea entrada, JTextArea resultado, boolean total){ //No uso res porque sino se rompe la impresion parcial   
