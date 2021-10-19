@@ -59,18 +59,22 @@ public class GUI extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnSuma.setBackground(new java.awt.Color(204, 204, 204));
         btnSuma.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnSuma.setText("+");
+        btnSuma.setBorderPainted(false);
         btnSuma.setFocusPainted(false);
         btnSuma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSumaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSuma, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 70, 80));
+        getContentPane().add(btnSuma, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, 70, 80));
 
+        btn7.setBackground(new java.awt.Color(204, 204, 204));
         btn7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn7.setText("7");
+        btn7.setBorderPainted(false);
         btn7.setFocusPainted(false);
         btn7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,8 +83,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 102, 92));
 
+        btn8.setBackground(new java.awt.Color(204, 204, 204));
         btn8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn8.setText("8");
+        btn8.setBorderPainted(false);
         btn8.setFocusPainted(false);
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,8 +95,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 102, 92));
 
+        btn9.setBackground(new java.awt.Color(204, 204, 204));
         btn9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn9.setText("9");
+        btn9.setBorderPainted(false);
         btn9.setFocusPainted(false);
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,8 +107,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 102, 92));
 
+        btn4.setBackground(new java.awt.Color(204, 204, 204));
         btn4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn4.setText("4");
+        btn4.setBorderPainted(false);
         btn4.setFocusPainted(false);
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,8 +119,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 102, 92));
 
+        btn5.setBackground(new java.awt.Color(204, 204, 204));
         btn5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn5.setText("5");
+        btn5.setBorderPainted(false);
         btn5.setFocusPainted(false);
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,8 +131,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 102, 92));
 
+        btn6.setBackground(new java.awt.Color(204, 204, 204));
         btn6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn6.setText("6");
+        btn6.setBorderPainted(false);
         btn6.setFocusPainted(false);
         btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,8 +143,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 102, 92));
 
+        btn0.setBackground(new java.awt.Color(204, 204, 204));
         btn0.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn0.setText("0");
+        btn0.setBorderPainted(false);
         btn0.setFocusPainted(false);
         btn0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,18 +155,22 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn0, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 102, 90));
 
+        btnIgual.setBackground(new java.awt.Color(204, 204, 204));
         btnIgual.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnIgual.setText("=");
+        btnIgual.setBorderPainted(false);
         btnIgual.setFocusPainted(false);
         btnIgual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIgualActionPerformed(evt);
             }
         });
-        getContentPane().add(btnIgual, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 140, 90));
+        getContentPane().add(btnIgual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 140, 90));
 
+        btnComa.setBackground(new java.awt.Color(204, 204, 204));
         btnComa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnComa.setText(",");
+        btnComa.setBorderPainted(false);
         btnComa.setFocusPainted(false);
         btnComa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,8 +179,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btnComa, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 102, 90));
 
+        btn1.setBackground(new java.awt.Color(204, 204, 204));
         btn1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn1.setText("1");
+        btn1.setBorderPainted(false);
         btn1.setFocusPainted(false);
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,8 +191,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 102, 92));
 
+        btn2.setBackground(new java.awt.Color(204, 204, 204));
         btn2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn2.setText("2");
+        btn2.setBorderPainted(false);
         btn2.setFocusPainted(false);
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,8 +203,10 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 102, 92));
 
+        btnPi.setBackground(new java.awt.Color(204, 204, 204));
         btnPi.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnPi.setText("π");
+        btnPi.setBorderPainted(false);
         btnPi.setFocusPainted(false);
         btnPi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,45 +215,53 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btnPi, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 102, 90));
 
+        btnParentesisCerrado.setBackground(new java.awt.Color(204, 204, 204));
         btnParentesisCerrado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnParentesisCerrado.setText(")");
+        btnParentesisCerrado.setBorderPainted(false);
         btnParentesisCerrado.setFocusPainted(false);
         btnParentesisCerrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnParentesisCerradoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnParentesisCerrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 70, 60));
+        getContentPane().add(btnParentesisCerrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, 70, 60));
 
+        btnDivision.setBackground(new java.awt.Color(204, 204, 204));
         btnDivision.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnDivision.setText("/");
+        btnDivision.setBorderPainted(false);
         btnDivision.setFocusPainted(false);
         btnDivision.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDivisionActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDivision, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 70, 80));
+        getContentPane().add(btnDivision, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 70, 80));
 
+        btnMultiplicacion.setBackground(new java.awt.Color(204, 204, 204));
         btnMultiplicacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnMultiplicacion.setText("*");
+        btnMultiplicacion.setBorderPainted(false);
         btnMultiplicacion.setFocusPainted(false);
         btnMultiplicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMultiplicacionActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMultiplicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, 70, 80));
+        getContentPane().add(btnMultiplicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 70, 80));
 
+        btnResta.setBackground(new java.awt.Color(204, 204, 204));
         btnResta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnResta.setText("-");
+        btnResta.setBorderPainted(false);
         btnResta.setFocusPainted(false);
         btnResta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRestaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnResta, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, 70, 80));
+        getContentPane().add(btnResta, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 70, 80));
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -262,38 +296,46 @@ public class GUI extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 390, 50));
 
+        btnBorrar1.setBackground(new java.awt.Color(204, 204, 204));
         btnBorrar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBorrar1.setText("CE");
+        btnBorrar1.setBorderPainted(false);
         btnBorrar1.setFocusPainted(false);
         btnBorrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 70, 50));
+        getContentPane().add(btnBorrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 70, 50));
 
+        btnPow1.setBackground(new java.awt.Color(204, 204, 204));
         btnPow1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnPow1.setText("↑");
+        btnPow1.setBorderPainted(false);
         btnPow1.setFocusPainted(false);
         btnPow1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPow1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 70, 50));
+        getContentPane().add(btnPow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 70, 50));
 
+        btnParentesisAbierto.setBackground(new java.awt.Color(204, 204, 204));
         btnParentesisAbierto.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnParentesisAbierto.setText("(");
+        btnParentesisAbierto.setBorderPainted(false);
         btnParentesisAbierto.setFocusPainted(false);
         btnParentesisAbierto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnParentesisAbiertoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnParentesisAbierto, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 70, 60));
+        getContentPane().add(btnParentesisAbierto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 70, 60));
 
+        btn3.setBackground(new java.awt.Color(204, 204, 204));
         btn3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn3.setText("3");
+        btn3.setBorderPainted(false);
         btn3.setFocusPainted(false);
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
