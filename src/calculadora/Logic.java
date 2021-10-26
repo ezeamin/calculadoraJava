@@ -57,8 +57,9 @@ public class Logic {
     private String checkPi(String str, JTextArea resultado){
         if("π".equals(str)){
             if(resultado.getText().equals("Syntax error")) str="3.14";
-            else if(cadena.length()!=0 && cadena.charAt(cadena.length()-1)!='*'){
-                str="*3.14";
+            else if(cadena.length()!=0 && (Character.isDigit(cadena.charAt(cadena.length()-1)))){
+                if(cadena.charAt(cadena.length()-1)=='(') str="3.14";   
+                else str="*3.14";
             }
             else str="3.14";
         }
