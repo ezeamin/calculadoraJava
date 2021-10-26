@@ -155,7 +155,7 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(btn0, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 102, 90));
 
-        btnIgual.setBackground(new java.awt.Color(204, 204, 204));
+        btnIgual.setBackground(new java.awt.Color(255, 153, 0));
         btnIgual.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnIgual.setText("=");
         btnIgual.setBorderPainted(false);
